@@ -161,36 +161,15 @@
     <div class="week exam final-unit"><h3>Final Exam (Dec 16 at 1:30PM)</h3><p>📝 Comprehensive translation analysis</p></div>
   </section>
 <script>
-  let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
   const units = document.querySelectorAll('.unit');
   const weeks = document.querySelectorAll('.week');
 
-  // Ensure Unit 1 is visible on load
-  if (units[0]) {
-    units[0].classList.add('visible');
-  }
+  // Animate weeks on scroll direction
+  let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const scrollingDown = scrollTop > lastScrollTop;
-
-    units.forEach((unit, i) => {
-  unit.style.transitionDelay = `${i * 100}ms`;
-
-  if (scrollingDown) {
-    unit.classList.add('visible');
-    unit.classList.remove('hidden');
-  } else {
-    // Keep Unit 1 visible until user scrolls past 100px
-    if (i === 0 && scrollTop < 100) {
-      unit.classList.add('visible');
-      unit.classList.remove('hidden');
-    } else {
-      unit.classList.remove('visible');
-      unit.classList.add('hidden');
-    }
-  }
-});
 
     weeks.forEach((week, i) => {
       week.style.transitionDelay = `${i * 100}ms`;
@@ -202,6 +181,27 @@
     });
 
     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+  });
+
+  // Animate units based on visibility in viewport
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const unit = entry.target;
+      if (entry.isIntersecting) {
+        unit.classList.add('visible');
+        unit.classList.remove('hidden');
+      } else {
+        unit.classList.remove('visible');
+        unit.classList.add('hidden');
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  units.forEach((unit, i) => {
+    unit.style.transitionDelay = `${i * 100}ms`;
+    observer.observe(unit);
   });
 </script>
 </body>
