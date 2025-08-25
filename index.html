@@ -76,7 +76,17 @@
   opacity: 1;
   transform: translateY(0);
 }
+.unit {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
 
+.unit.hidden {
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
+}
     .week:hover {
       background-color: #eef6ff;
     }
@@ -147,23 +157,24 @@
     <div class="week exam final-unit"><h3>Final Exam (Dec 16 at 1:30PM)</h3><p>📝 Comprehensive translation analysis</p></div>
   </section>
 <script>
-  const weeks = document.querySelectorAll('.week');
+  let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const units = document.querySelectorAll('.unit');
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollingDown = scrollTop > lastScrollTop;
+
+    units.forEach((unit, i) => {
+      unit.style.transitionDelay = `${i * 100}ms`;
+      if (scrollingDown) {
+        unit.classList.remove('hidden');
+      } else {
+        unit.classList.add('hidden');
       }
     });
-  }, {
-    threshold: 0.1
-  });
 
-  weeks.forEach((week, i) => {
-  week.style.transitionDelay = `${i * 100}ms`; // 100ms stagger per item
-  observer.observe(week);
-});
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+  });
 </script>
 </body>
 </html>
