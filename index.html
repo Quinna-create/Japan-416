@@ -184,22 +184,24 @@
   });
 
   // Animate units based on visibility in viewport
-  let previousY = 0;
+
+const unitStates = new Map();
 
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     const unit = entry.target;
     const bounding = entry.boundingClientRect;
-    const currentY = bounding.top;
 
+    const previousY = unitStates.get(unit) || bounding.top;
+    const currentY = bounding.top;
     const scrollingDown = currentY > previousY;
-    previousY = currentY;
+
+    unitStates.set(unit, currentY);
 
     if (entry.isIntersecting) {
       unit.classList.add('visible');
       unit.classList.remove('hidden');
     } else {
-      // Fade out only if exiting in scroll direction
       if ((scrollingDown && bounding.top > window.innerHeight) ||
           (!scrollingDown && bounding.bottom < 0)) {
         unit.classList.remove('visible');
@@ -211,7 +213,6 @@ const observer = new IntersectionObserver(entries => {
   threshold: 0.6,
   rootMargin: "0px 0px -100px 0px"
 });
-
   units.forEach((unit, i) => {
     unit.style.transitionDelay = `${i * 100}ms`;
     observer.observe(unit);
