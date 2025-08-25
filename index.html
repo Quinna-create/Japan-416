@@ -59,14 +59,22 @@
       margin-bottom: 20px;
     }
 
-    .week {
-  /* existing styles */
+.week.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+    
+.unit {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+.week {
   border-left: 5px solid #3498db;
   padding: 10px 20px;
   margin-bottom: 15px;
   background-color: #fdfdfd;
-  transition: background-color 0.3s ease;
-  /* animation additions */
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
@@ -76,12 +84,6 @@
   opacity: 1;
   transform: translateY(0);
 }
-.unit {
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .unit.hidden {
   opacity: 0;
   transform: translateY(-20px);
@@ -159,6 +161,7 @@
 <script>
   let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
   const units = document.querySelectorAll('.unit');
+  const weeks = document.querySelectorAll('.week');
 
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -170,6 +173,15 @@
         unit.classList.remove('hidden');
       } else {
         unit.classList.add('hidden');
+      }
+    });
+
+    weeks.forEach((week, i) => {
+      week.style.transitionDelay = `${i * 100}ms`;
+      if (scrollingDown) {
+        week.classList.add('visible');
+      } else {
+        week.classList.remove('visible');
       }
     });
 
