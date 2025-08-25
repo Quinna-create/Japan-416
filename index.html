@@ -185,19 +185,25 @@
 
   // Animate units based on visibility in viewport
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      const unit = entry.target;
-      if (entry.isIntersecting) {
-        unit.classList.add('visible');
-        unit.classList.remove('hidden');
-      } else {
+  entries.forEach(entry => {
+    const unit = entry.target;
+    const bounding = entry.boundingClientRect;
+
+    if (entry.isIntersecting) {
+      unit.classList.add('visible');
+      unit.classList.remove('hidden');
+    } else {
+      // Only hide if the unit is exiting downward (bottom of viewport)
+      if (bounding.top > window.innerHeight) {
         unit.classList.remove('visible');
         unit.classList.add('hidden');
       }
-    });
-  }, {
-    threshold: 0.1
+    }
   });
+}, {
+  threshold: 0.6,
+  rootMargin: "0px 0px -100px 0px"
+});
 
   units.forEach((unit, i) => {
     unit.style.transitionDelay = `${i * 100}ms`;
