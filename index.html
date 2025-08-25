@@ -4,8 +4,18 @@
   <meta charset="UTF-8">
   <title>Japan 416 – Fall 2025 Schedule</title>
   <style>
+    @font-face {
+      font-family: 'California FB';
+      src: local('California FB');
+    }
+
+    @font-face {
+      font-family: 'Book Antiqua';
+      src: local('Book Antiqua');
+    }
+
     body {
-      font-family: 'Helvetica Neue', sans-serif;
+      font-family: 'California FB', serif;
       background-color: #f7f7f7;
       color: #333;
       margin: 0;
@@ -18,18 +28,33 @@
     }
 
     h1 {
+      font-family: 'Book Antiqua', serif;
       font-size: 2.5em;
       color: #2c3e50;
       margin-bottom: 10px;
     }
 
-    .schedule {
+    .note {
+      font-style: italic;
+      color: #7f8c8d;
+    }
+
+    .unit {
       max-width: 800px;
-      margin: 0 auto;
+      margin: 40px auto;
+      padding: 30px;
       background: #fff;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      padding: 30px;
+    }
+
+    .unit h2 {
+      font-family: 'Book Antiqua', serif;
+      font-size: 1.5em;
+      color: #34495e;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
     }
 
     .week {
@@ -44,24 +69,34 @@
       background-color: #eef6ff;
     }
 
-    .week h2 {
+    .week h3 {
+      font-family: 'Book Antiqua', serif;
       margin: 0;
       font-size: 1.2em;
       color: #2980b9;
     }
 
     .week p {
+      font-family: 'California FB', serif;
       margin: 5px 0 0;
       font-size: 1em;
     }
 
-    .highlight {
+    .exam {
       border-left-color: #e74c3c;
+      background-color: #fff5f5;
     }
 
-    .note {
-      font-style: italic;
-      color: #7f8c8d;
+    .exam h3 {
+      color: #c0392b;
+    }
+
+    .final-unit {
+      border-left-color: #8e44ad;
+    }
+
+    .final-unit h3 {
+      color: #8e44ad;
     }
   </style>
 </head>
@@ -71,23 +106,6 @@
     <p class="note">Translation, nuance, and literary exploration</p>
   </header>
 
-  <section class="schedule">
-    <div class="week"><h2>Week 1 (Sep 3)</h2><p>草野心平 – Course intro, group signups</p></div>
-    <div class="week"><h2>Week 2 (Sep 8 & 10)</h2><p>岸本佐知子</p></div>
-    <div class="week"><h2>Week 3 (Sep 15 & 17)</h2><p>安部公房</p></div>
-    <div class="week"><h2>Week 4 (Sep 22 & 24)</h2><p>安部公房（２）</p></div>
-    <div class="week highlight"><h2>Week 5 (Sep 29 & Oct 1)</h2><p>MIDTERM TEST 1</p></div>
-    <div class="week"><h2>Week 6 (Oct 6 & 8)</h2><p>バカリズム</p></div>
-    <div class="week"><h2>Week 7 (Oct 13 & 15)</h2><p>バカリズム（２）</p></div>
-    <div class="week"><h2>Week 8 (Oct 20 & 22)</h2><p>緑組</p></div>
-    <div class="week"><h2>Week 9 (Oct 27 & 29)</h2><p>白組</p></div>
-    <div class="week"><h2>Week 10 (Nov 3 & 5)</h2><p>黄組</p></div>
-    <div class="week highlight"><h2>Week 11 (Nov 10 & 12)</h2><p>紫組 – MIDTERM TEST 2</p></div>
-    <div class="week"><h2>Week 12 (Nov 17 & 19)</h2><p>赤組</p></div>
-    <div class="week"><h2>Week 13 (Nov 24)</h2><p>THANKSGIVING RECESS</p></div>
-    <div class="week"><h2>Week 14 (Dec 1 & 3)</h2><p>青組</p></div>
-    <div class="week"><h2>Week 15 (Dec 8 & 10)</h2><p>Final review</p></div>
-    <div class="week highlight"><h2>Final Exam (Dec 16 at 1:30PM)</h2><p>Comprehensive translation analysis</p></div>
-  </section>
-</body>
-</html>
+  <section class="unit">
+    <h2>Unit 1: Foundations & Literary Technique</h2>
+    <div class="week"><h3>Week 1 (Sep 
