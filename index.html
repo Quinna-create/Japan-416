@@ -80,15 +80,17 @@
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-.week.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
 .unit.hidden {
   opacity: 0;
   transform: translateY(-20px);
   pointer-events: none;
 }
+
+  .unit.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+    
     .week:hover {
       background-color: #eef6ff;
     }
@@ -131,7 +133,7 @@
     <p class="note">Translation, nuance, and literary exploration</p>
   </header>
 
-  <section class="unit">
+  <section class="unit visible">
     <h2>Unit 1: Foundations & Literary Technique</h2>
     <div class="week"><h3>Week 1 (Sep 3)</h3><p>草野心平 – Course intro, group signups</p></div>
     <div class="week"><h3>Week 2 (Sep 8 & 10)</h3><p>岸本佐知子</p></div>
@@ -163,18 +165,32 @@
   const units = document.querySelectorAll('.unit');
   const weeks = document.querySelectorAll('.week');
 
+  // Ensure Unit 1 is visible on load
+  if (units[0]) {
+    units[0].classList.add('visible');
+  }
+
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const scrollingDown = scrollTop > lastScrollTop;
 
     units.forEach((unit, i) => {
-      unit.style.transitionDelay = `${i * 100}ms`;
-      if (scrollingDown) {
-        unit.classList.remove('hidden');
-      } else {
-        unit.classList.add('hidden');
-      }
-    });
+  unit.style.transitionDelay = `${i * 100}ms`;
+
+  if (scrollingDown) {
+    unit.classList.add('visible');
+    unit.classList.remove('hidden');
+  } else {
+    // Keep Unit 1 visible until user scrolls past 100px
+    if (i === 0 && scrollTop < 100) {
+      unit.classList.add('visible');
+      unit.classList.remove('hidden');
+    } else {
+      unit.classList.remove('visible');
+      unit.classList.add('hidden');
+    }
+  }
+});
 
     weeks.forEach((week, i) => {
       week.style.transitionDelay = `${i * 100}ms`;
