@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Japan 416 – Fall 2025 Schedule</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fdfdfd;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      background-color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Japan 416 – Fall 2025 Schedule</h1>
+  <canvas id="scheduleCanvas" width="800" height="1000"></canvas>
+
+  <script>
+    const canvas = document.getElementById('scheduleCanvas');
+    const ctx = canvas.getContext('2d');
+
+    ctx.font = '18px Arial';
+    ctx.fillStyle = '#333';
+    ctx.fillText('Week 1 (Sep 3): 草野心平 – Course intro, group signups', 40, 40);
+    ctx.fillText('Week 2 (Sep 8 & 10): 岸本佐知子', 40, 70);
+    ctx.fillText('Week 3 (Sep 15 & 17): 安部公房', 40, 100);
+    ctx.fillText('Week 4 (Sep 22 & 24): 安部公房（２）', 40, 130);
+    ctx.fillText('Week 5 (Sep 29 & Oct 1): MIDTERM TEST 1', 40, 160);
+    ctx.fillText('Week 6 (Oct 6 & 8): バカリズム', 40, 190);
+    ctx.fillText('Week 7 (Oct 13 & 15): バカリズム（２）', 40, 220);
+    ctx.fillText('Week 8 (Oct 20 & 22): 緑組', 40, 250);
+    ctx.fillText('Week 9 (Oct 27 & 29): 白組', 40, 280);
+    ctx.fillText('Week 10 (Nov 3 & 5): 黄組', 40, 310);
+    ctx.fillText('Week 11 (Nov 10 & 12): 紫組 – MIDTERM TEST 2', 40, 340);
+    ctx.fillText('Week 12 (Nov 17 & 19): 赤組', 40, 370);
+    ctx.fillText('Week 13 (Nov 24): THANKSGIVING RECESS', 40, 400);
+    ctx.fillText('Week 14 (Dec 1 & 3): 青組', 40, 430);
+    ctx.fillText('Week 15 (Dec 8 & 10): Final review', 40, 460);
+    ctx.fillText('Final Exam: Dec 16 at 1:30PM', 40, 490);
+  </script>
+</body>
+</html>
