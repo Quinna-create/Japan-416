@@ -14,13 +14,12 @@
       src: local('Book Antiqua');
     }
     body {
-        font-family: 'California FB', Georgia, serif;
-        background-color: #f7f7f7;
-        color: #333;
-        margin: 0;
+      font-family: 'California FB', Georgia, serif;
+      background-color: #f7f7f7;
+      color: #333;
+      margin: 0;
       padding: 40px;
     }
-    
     h1, h2, h3 {
       font-family: 'Book Antiqua', Palatino, serif;
     }
@@ -28,19 +27,16 @@
       text-align: center;
       margin-bottom: 40px;
     }
-
     h1 {
       font-family: 'Book Antiqua', serif;
       font-size: 2.5em;
       color: #2c3e50;
       margin-bottom: 10px;
     }
-
     .note {
       font-style: italic;
       color: #7f8c8d;
     }
-
     .unit {
       max-width: 800px;
       margin: 40px auto;
@@ -48,91 +44,59 @@
       background: #fff;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
 
-    .unit h2 {
-      font-family: 'Book Antiqua', serif;
-      font-size: 1.5em;
-      color: #34495e;
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 10px;
-      margin-bottom: 20px;
-    }
-
-  .week.visible {
+      /* Start visible, fade in on .visible, fade out on .hidden-up/.hidden-down */
       opacity: 1;
       transform: translateY(0);
-  }
-
-    .unit {
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .unit.hidden-up,
+    .unit.hidden-down {
       opacity: 0;
-      transform: translateY(-20px); /* fade in from top */
-      transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
-
-  }
-    
-
-.week {
-  border-left: 5px solid #3498db;
-  padding: 10px 20px;
-  margin-bottom: 15px;
-  background-color: #fdfdfd;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.unit.hidden-up {
-  opacity: 0;
-  transform: translateY(20px); /* fade out downward */
-  pointer-events: none;
-}
-
-.unit.hidden-down {
-  opacity: 0;
-  transform: translateY(-20px); /* fade out upward */
-  pointer-events: none;
-}
-
-.unit.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-    
+      pointer-events: none;
+      transform: translateY(20px); /* fade out downward */
+    }
+    .unit.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .week {
+      border-left: 5px solid #3498db;
+      padding: 10px 20px;
+      margin-bottom: 15px;
+      background-color: #fdfdfd;
+      /* Start visible, fade in on .visible */
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .week.exam {
+      border-left-color: #e74c3c;
+      background-color: #fff5f5;
+    }
+    .week.exam h3 {
+      color: #c0392b;
+    }
+    .week.final-unit {
+      border-left-color: #8e44ad;
+    }
+    .week.final-unit h3 {
+      color: #8e44ad;
+    }
     .week:hover {
       background-color: #eef6ff;
     }
-
     .week h3 {
       font-family: 'Book Antiqua', serif;
       margin: 0;
       font-size: 1.2em;
       color: #2980b9;
     }
-
     .week p {
       font-family: 'California FB', serif;
       margin: 5px 0 0;
       font-size: 1em;
     }
-
-    .exam {
-      border-left-color: #e74c3c;
-      background-color: #fff5f5;
-    }
-
-    .exam h3 {
-      color: #c0392b;
-    }
-
-    .final-unit {
-      border-left-color: #8e44ad;
-    }
-
-    .final-unit h3 {
-      color: #8e44ad;
-    }
-   
   </style>
 </head>
 <body>
@@ -141,7 +105,7 @@
     <p class="note">Translation, nuance, and literary exploration</p>
   </header>
 
-  <section class="unit visible">
+  <section class="unit">
     <h2>Unit 1: Getting Started</h2>
     <div class="week"><h3>Week 1 (Sep 3)</h3><p>草野心平 – Course intro, group signups</p></div>
     <div class="week"><h3>Week 2 (Sep 8 & 10)</h3><p>岸本佐知子</p></div>
@@ -169,40 +133,37 @@
     <div class="week exam final-unit"><h3>Final Exam (Dec 16 at 1:30PM)</h3><p>📝 Comprehensive translation analysis</p></div>
   </section>
 <script>
+  // Animate units when they come into view
   const unitStates = new Map();
   const units = document.querySelectorAll('.unit');
-  
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    const unit = entry.target;
-    const bounding = entry.boundingClientRect;
-
-    const previousY = unitStates.get(unit) || bounding.top;
-    const currentY = bounding.top;
-    const scrollingDown = currentY > previousY;
-
-    unitStates.set(unit, currentY);
-
-    if (entry.isIntersecting) {
-      unit.classList.add('visible');
-      unit.classList.remove('hidden-up');
-      unit.classList.remove('hidden-down');
-    } else {
-      if (scrollingDown && bounding.top > window.innerHeight) {
-        unit.classList.remove('visible');
-        unit.classList.add('hidden-down');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const unit = entry.target;
+      const bounding = entry.boundingClientRect;
+      const previousY = unitStates.get(unit) || bounding.top;
+      const currentY = bounding.top;
+      const scrollingDown = currentY > previousY;
+      unitStates.set(unit, currentY);
+      if (entry.isIntersecting) {
+        unit.classList.add('visible');
         unit.classList.remove('hidden-up');
-      } else if (!scrollingDown && bounding.bottom < 0) {
-        unit.classList.remove('visible');
-        unit.classList.add('hidden-up');
         unit.classList.remove('hidden-down');
+      } else {
+        if (scrollingDown && bounding.top > window.innerHeight) {
+          unit.classList.remove('visible');
+          unit.classList.add('hidden-down');
+          unit.classList.remove('hidden-up');
+        } else if (!scrollingDown && bounding.bottom < 0) {
+          unit.classList.remove('visible');
+          unit.classList.add('hidden-up');
+          unit.classList.remove('hidden-down');
+        }
       }
-    }
+    });
+  }, {
+    threshold: 0.2, // less restrictive threshold
+    rootMargin: "0px 0px -50px 0px"
   });
-}, {
-  threshold: 0.6,
-  rootMargin: "0px 0px -100px 0px"
-});
   units.forEach((unit, i) => {
     unit.style.transitionDelay = `${i * 100}ms`;
     observer.observe(unit);
