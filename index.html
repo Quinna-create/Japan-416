@@ -164,6 +164,7 @@
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
+      console.log('Observed:', entry.target);
       const week = entry.target;
       const bounding = entry.boundingClientRect;
       const previousY = weekStates.get(week) || bounding.top;
