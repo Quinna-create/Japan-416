@@ -1,37 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Japan</title>
+    <title>Japan 416 Fall 2025 Schedule</title>
     <style>
-        .unit {
-            opacity: 0.1; /* Changed from 0 to 0.1 */
-            transition: opacity 0.5s ease-in-out;
-        }
-        .unit.visible {
-            opacity: 1;
-        }
+        /* Other styles */
+        .unit { opacity: 0.1; } /* Changed from 0 to 0.1 */
+        /* Color-coded groups */
+        .green { background-color: green; }
+        .white { background-color: white; }
+        .yellow { background-color: yellow; }
+        .purple { background-color: purple; }
+        .red { background-color: red; }
+        .blue { background-color: blue; }
+        /* Add animations and other styles */
     </style>
 </head>
 <body>
-    <div class="unit">Unit 1</div>
-    <div class="unit">Unit 2</div>
-    <div class="unit">Unit 3</div>
-    <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                } else {
-                    entry.target.classList.remove('visible');
-                }
-            });
-        });
-
-        document.querySelectorAll('.unit').forEach(unit => {
-            observer.observe(unit);
-        });
-    </script>
+    <h1>Japan 416 Fall 2025 Schedule</h1>
+    <p>Authors: 草野心平, 岸本佐知子, 安部公房, バカリズム</p>
+    <div class="schedule">
+        <!-- Complete schedule content goes here -->
+    </div>
+    <div class="midterm-tests">
+        <!-- Midterm tests content -->
+    </div>
+    <div class="final-exam">
+        <!-- Final exam content -->
+    </div>
+    <!-- More content -->
 </body>
 </html>
