@@ -158,7 +158,8 @@
     <div class="week exam final-unit"><h3>Final Exam (Dec 16 at 1:30PM)</h3><p>📝 Comprehensive translation</p></div>
   </section>
  <script>
-  const weekStates = new Map();
+  console.log('Observed:', entry.target);
+   const weekStates = new Map();
   const weeks = document.querySelectorAll('.week');
 
   const observer = new IntersectionObserver(entries => {
