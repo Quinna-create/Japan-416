@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-  <p style="color: red;">If you see this, HTML is rendering correctly.</p>
 <head>
   <meta charset="UTF-8">
   <title>Japan 416 – Fall 2025 Schedule</title>
@@ -49,10 +48,7 @@
   transform: translateY(-20px);
   transition: opacity 1s ease-in-out 0.4s, transform 1s ease-in-out 0.4s;
 }
-  .unit, .week {
-  opacity: 1 !important;
-  transform: none !important;
-}  
+ 
     .unit.hidden-up {
   opacity: 0;
   transform: translateY(20px); /* fade out downward */
@@ -60,18 +56,18 @@
       pointer-events: none;
 }
 
- /* .unit.hidden-down {
+ .unit.hidden-down {
   opacity: 0;
   transform: translateY(-20px); /* fade out upward */
  transition: opacity 1s ease-in-out 0.4s, transform 1s ease-in-out 0.4s;
   pointer-events: none;
-} */
+}
 
     .unit.visible {
       opacity: 1;
       transform: translateY(0);
     }
- /*   .week {
+  .week {
   border-left: 5px solid #3498db;
   padding: 10px 20px;
   margin-bottom: 15px;
@@ -79,14 +75,14 @@
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-} */
+}
 
-   /* .week.hidden-up {
+.week.hidden-up {
   opacity: 0;
   transform: translateY(20px); /* fade out downward */
   transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.5, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.5, 1);
   pointer-events: none;
-} */
+}
 .week.hidden-down {
   opacity: 0;
   transform: translateY(-20px); /* fade out upward */
@@ -135,7 +131,7 @@
 
   <section class="unit">
     <h2>Unit 1: Getting Started</h2>
-    <div class="week"><h3>Week 1 (Sep 3)</h3><p>草野心平 – Course intro, group signups</p></div>
+    <div class="week visible"><h3>Week 1 (Sep 3)</h3><p>草野心平 – Course intro, group signups</p></div>
     <div class="week"><h3>Week 2 (Sep 8 & 10)</h3><p>岸本佐知子</p></div>
     <div class="week"><h3>Week 3 (Sep 15 & 17)</h3><p>安部公房</p></div>
     <div class="week"><h3>Week 4 (Sep 22 & 24)</h3><p>安部公房（２）</p></div>
@@ -144,7 +140,7 @@
 
   <section class="unit">
     <h2>Unit 2: Main Projects</h2>
-    <div class="week"><h3>Week 6 (Oct 6 & 8)</h3><p>バカリズム</p></div>
+    <div class="week visible"><h3>Week 6 (Oct 6 & 8)</h3><p>バカリズム</p></div>
     <div class="week" style="opacity: 1; transform: translateY(0);"><h3>Week 1</h3><p>Test</p></div>
     <div class="week"><h3>Week 7 (Oct 13 & 15)</h3><p>バカリズム（２）</p></div>
     <div class="week"><h3>Week 8 (Oct 20 & 22)</h3><p>緑組</p></div>
@@ -161,7 +157,7 @@
     <div class="week final-unit"><h3>Week 15 (Dec 8 & 10)</h3><p>Final review</p></div>
     <div class="week exam final-unit"><h3>Final Exam (Dec 16 at 1:30PM)</h3><p>📝 Comprehensive translation</p></div>
   </section>
-  <script>
+ /* <script>
   const weekStates = new Map();
   const weeks = document.querySelectorAll('.week');
 
@@ -199,6 +195,6 @@
     week.style.transitionDelay = `${i * 50}ms`;
     observer.observe(week);
   });
-</script>
+</script> */
 </body>
 </html>
