@@ -170,7 +170,8 @@
   </section>
 <script>
   const unitStates = new Map();
-
+  const units = document.querySelectorAll('.unit');
+  
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     const unit = entry.target;
