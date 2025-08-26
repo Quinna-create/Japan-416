@@ -38,19 +38,16 @@
       color: #7f8c8d;
     }
     .unit {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 30px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-      
-      .unit {
-        opacity: 0;
-        transform: translateY(-20px);
-        transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
-       }
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+}
     
     .unit.hidden-up {
   opacity: 0;
@@ -145,44 +142,44 @@
     <div class="week exam final-unit"><h3>Final Exam (Dec 16 at 1:30PM)</h3><p>📝 Comprehensive translation</p></div>
   </section>
 <script>
-  // Animate units when they come into view
   const unitStates = new Map();
   const units = document.querySelectorAll('.unit');
-  
-  const observer = new IntersectionObserver(entries => {
-   
-      entries.forEach(entry => {
-  const unit = entry.target;
-  const bounding = entry.boundingClientRect;
-  const previousY = unitStates.get(unit) || bounding.top;
-  const currentY = bounding.top;
-  const scrollingDown = currentY > previousY;
-  unitStates.set(unit, currentY);
-  if (entry.isIntersecting) {
-    unit.classList.add('visible');
-    unit.classList.remove('hidden-up');
-    unit.classList.remove('hidden-down');
 
-    const weeks = unit.querySelectorAll('.week');
-    weeks.forEach((week, i) => {
-      week.style.transitionDelay = `${i * 100}ms`;
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const unit = entry.target;
+      const bounding = entry.boundingClientRect;
+      const previousY = unitStates.get(unit) || bounding.top;
+      const currentY = bounding.top;
+      const scrollingDown = currentY > previousY;
+      unitStates.set(unit, currentY);
+
+      if (entry.isIntersecting) {
+        unit.classList.add('visible');
+        unit.classList.remove('hidden-up');
+        unit.classList.remove('hidden-down');
+
+        const weeks = unit.querySelectorAll('.week');
+        weeks.forEach((week, i) => {
+          week.style.transitionDelay = `${i * 100}ms`;
+        });
+      } else {
+        if (scrollingDown && bounding.top > window.innerHeight) {
+          unit.classList.remove('visible');
+          unit.classList.add('hidden-down');
+          unit.classList.remove('hidden-up');
+        } else if (!scrollingDown && bounding.bottom < 0) {
+          unit.classList.remove('visible');
+          unit.classList.add('hidden-up');
+          unit.classList.remove('hidden-down');
+        }
+      }
     });
-  } else {
-    if (scrollingDown && bounding.top > window.innerHeight) {
-      unit.classList.remove('visible');
-      unit.classList.add('hidden-down');
-      unit.classList.remove('hidden-up');
-    } else if (!scrollingDown && bounding.bottom < 0) {
-      unit.classList.remove('visible');
-      unit.classList.add('hidden-up');
-      unit.classList.remove('hidden-down');
-    }
-  }
-});
   }, {
-    threshold: 0.2, // less restrictive threshold
+    threshold: 0.2,
     rootMargin: "0px 0px -50px 0px"
   });
+
   units.forEach((unit, i) => {
     unit.style.transitionDelay = `${i * 100}ms`;
     observer.observe(unit);
