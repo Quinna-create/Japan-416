@@ -173,7 +173,7 @@
       unit.classList.remove('hidden-up');
     }
     // Fade out when unit exits top while scrolling up
-   else if (!scrollingDown && bounding.bottom <= 0) {
+   else if (!scrollingDown && bounding.top < 0) {
   unit.classList.remove('visible');
   unit.classList.add('hidden-up');
   unit.classList.remove('hidden-down');
