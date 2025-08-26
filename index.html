@@ -52,12 +52,14 @@
     .unit.hidden-up {
   opacity: 0;
   transform: translateY(20px); /* fade out downward */
-  pointer-events: none;
+  transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+      pointer-events: none;
 }
 
 .unit.hidden-down {
   opacity: 0;
   transform: translateY(-20px); /* fade out upward */
+  transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
   pointer-events: none;
 }
 
@@ -146,35 +148,38 @@
   const units = document.querySelectorAll('.unit');
 
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      const unit = entry.target;
-      const bounding = entry.boundingClientRect;
-      const previousY = unitStates.get(unit) || bounding.top;
-      const currentY = bounding.top;
-      const scrollingDown = currentY > previousY;
-      unitStates.set(unit, currentY);
+   entries.forEach(entry => {
+  const unit = entry.target;
+  const bounding = entry.boundingClientRect;
+  const previousY = unitStates.get(unit) || bounding.top;
+  const currentY = bounding.top;
+  const scrollingDown = currentY > previousY;
+  unitStates.set(unit, currentY);
 
-      if (entry.isIntersecting) {
-        unit.classList.add('visible');
-        unit.classList.remove('hidden-up');
-        unit.classList.remove('hidden-down');
+  if (entry.isIntersecting) {
+    unit.classList.add('visible');
+    unit.classList.remove('hidden-up');
+    unit.classList.remove('hidden-down');
 
-        const weeks = unit.querySelectorAll('.week');
-        weeks.forEach((week, i) => {
-          week.style.transitionDelay = `${i * 100}ms`;
-        });
-      } else {
-        if (scrollingDown && bounding.top > window.innerHeight) {
-          unit.classList.remove('visible');
-          unit.classList.add('hidden-down');
-          unit.classList.remove('hidden-up');
-        } else if (!scrollingDown && bounding.bottom < 0) {
-          unit.classList.remove('visible');
-          unit.classList.add('hidden-up');
-          unit.classList.remove('hidden-down');
-        }
-      }
+    const weeks = unit.querySelectorAll('.week');
+    weeks.forEach((week, i) => {
+      week.style.transitionDelay = `${i * 100}ms`;
     });
+  } else {
+    // Fade out when unit exits bottom while scrolling down
+    if (scrollingDown && bounding.top > window.innerHeight) {
+      unit.classList.remove('visible');
+      unit.classList.add('hidden-down');
+      unit.classList.remove('hidden-up');
+    }
+    // Fade out when unit exits top while scrolling up
+    else if (!scrollingDown && bounding.top < 0) {
+  unit.classList.remove('visible');
+  unit.classList.add('hidden-up');
+  unit.classList.remove('hidden-down');
+}
+  }
+});
   }, {
     threshold: 0.2,
     rootMargin: "0px 0px -50px 0px"
