@@ -170,18 +170,19 @@ const observer = new IntersectionObserver(entries => {
     weekStates.set(week, currentY);
 
     if (entry.isIntersecting) {
-      week.classList.add('visible');
-      week.classList.remove('hidden-up');
-      week.classList.remove('hidden-down');
-    } else {
-      if (scrollingDown && bounding.top > window.innerHeight) {
-        week.classList.remove('visible');
-        week.classList.add('hidden-down');
-        week.classList.remove('hidden-up');
-      } else if (!scrollingDown && bounding.top > window.innerHeight) {
-  week.classList.remove('visible');
-  week.classList.add('hidden-up'); // fade out downward
+  week.classList.add('visible');
+  week.classList.remove('hidden-up');
   week.classList.remove('hidden-down');
+} else {
+  if (scrollingDown && bounding.top > window.innerHeight) {
+    week.classList.remove('visible');
+    week.classList.add('hidden-down');
+    week.classList.remove('hidden-up');
+  } else if (!scrollingDown && bounding.bottom < 0) {
+    week.classList.remove('visible');
+    week.classList.add('hidden-up'); // fade out downward
+    week.classList.remove('hidden-down');
+  }
 }
     }
   });
