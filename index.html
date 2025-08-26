@@ -175,8 +175,8 @@
     // Fade out when unit exits top while scrolling up
    else if (!scrollingDown && bounding.top < 0) {
   unit.classList.remove('visible');
-  unit.classList.add('hidden-up');
-  unit.classList.remove('hidden-down');
+  unit.classList.add('hidden-down'); // fade out downward
+  unit.classList.remove('hidden-up');
 }
   }
 });
