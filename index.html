@@ -66,8 +66,9 @@
 
     .unit {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(-20px); /* fade in from top */
       transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+
   }
     
 
@@ -81,16 +82,22 @@
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-.unit.hidden {
+.unit.hidden-up {
   opacity: 0;
-  transform: translateY(-20px);
+  transform: translateY(20px); /* fade out downward */
   pointer-events: none;
 }
 
-  .unit.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.unit.hidden-down {
+  opacity: 0;
+  transform: translateY(-20px); /* fade out upward */
+  pointer-events: none;
+}
+
+.unit.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
     
     .week:hover {
       background-color: #eef6ff;
@@ -161,31 +168,6 @@
     <div class="week final-unit"><h3>Week 15 (Dec 8 & 10)</h3><p>Final review</p></div>
     <div class="week exam final-unit"><h3>Final Exam (Dec 16 at 1:30PM)</h3><p>📝 Comprehensive translation analysis</p></div>
   </section>
-<script>
-  const units = document.querySelectorAll('.unit');
-  const weeks = document.querySelectorAll('.week');
-
-  // Animate weeks on scroll direction
-  let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const scrollingDown = scrollTop > lastScrollTop;
-
-    weeks.forEach((week, i) => {
-      week.style.transitionDelay = `${i * 100}ms`;
-      if (scrollingDown) {
-        week.classList.add('visible');
-      } else {
-        week.classList.remove('visible');
-      }
-    });
-
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-  });
-
-  // Animate units based on visibility in viewport
-
 const unitStates = new Map();
 
 const observer = new IntersectionObserver(entries => {
@@ -201,12 +183,17 @@ const observer = new IntersectionObserver(entries => {
 
     if (entry.isIntersecting) {
       unit.classList.add('visible');
-      unit.classList.remove('hidden');
+      unit.classList.remove('hidden-up');
+      unit.classList.remove('hidden-down');
     } else {
-      if ((scrollingDown && bounding.top > window.innerHeight) ||
-          (!scrollingDown && bounding.bottom < 0)) {
+      if (scrollingDown && bounding.top > window.innerHeight) {
         unit.classList.remove('visible');
-        unit.classList.add('hidden');
+        unit.classList.add('hidden-down');
+        unit.classList.remove('hidden-up');
+      } else if (!scrollingDown && bounding.bottom < 0) {
+        unit.classList.remove('visible');
+        unit.classList.add('hidden-up');
+        unit.classList.remove('hidden-down');
       }
     }
   });
