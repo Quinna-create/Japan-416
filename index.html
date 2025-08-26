@@ -44,18 +44,26 @@
       background: #fff;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+      
+      .unit {
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+       }
+    
+    .unit.hidden-up {
+  opacity: 0;
+  transform: translateY(20px); /* fade out downward */
+  pointer-events: none;
+}
 
-      /* Start visible, fade in on .visible, fade out on .hidden-up/.hidden-down */
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .unit.hidden-up,
-    .unit.hidden-down {
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(20px); /* fade out downward */
-    }
+.unit.hidden-down {
+  opacity: 0;
+  transform: translateY(-20px); /* fade out upward */
+  pointer-events: none;
+}
+
     .unit.visible {
       opacity: 1;
       transform: translateY(0);
@@ -136,6 +144,10 @@
   // Animate units when they come into view
   const unitStates = new Map();
   const units = document.querySelectorAll('.unit');
+  const weeks = document.querySelectorAll('.week');
+  weeks.forEach((week, i) => {
+    week.style.transitionDelay = `${i * 50}ms`;
+    });
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       const unit = entry.target;
