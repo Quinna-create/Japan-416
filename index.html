@@ -158,43 +158,42 @@
   </section>
 <script>
   const weekStates = new Map();
-const weeks = document.querySelectorAll('.week');
+  const weeks = document.querySelectorAll('.week');
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    const week = entry.target;
-    const bounding = entry.boundingClientRect;
-    const previousY = weekStates.get(week) || bounding.top;
-    const currentY = bounding.top;
-    const scrollingDown = currentY > previousY;
-    weekStates.set(week, currentY);
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const week = entry.target;
+      const bounding = entry.boundingClientRect;
+      const previousY = weekStates.get(week) || bounding.top;
+      const currentY = bounding.top;
+      const scrollingDown = currentY > previousY;
+      weekStates.set(week, currentY);
 
-    if (entry.isIntersecting) {
-  week.classList.add('visible');
-  week.classList.remove('hidden-up');
-  week.classList.remove('hidden-down');
-} else {
-  if (scrollingDown && bounding.top > window.innerHeight) {
-    week.classList.remove('visible');
-    week.classList.add('hidden-down');
-    week.classList.remove('hidden-up');
-  } else if (!scrollingDown && bounding.bottom < 0) {
-    week.classList.remove('visible');
-    week.classList.add('hidden-up'); // fade out downward
-    week.classList.remove('hidden-down');
-  }
-}
-    }
+      if (entry.isIntersecting) {
+        week.classList.add('visible');
+        week.classList.remove('hidden-up');
+        week.classList.remove('hidden-down');
+      } else {
+        if (scrollingDown && bounding.top > window.innerHeight) {
+          week.classList.remove('visible');
+          week.classList.add('hidden-down');
+          week.classList.remove('hidden-up');
+        } else if (!scrollingDown && bounding.bottom < 0) {
+          week.classList.remove('visible');
+          week.classList.add('hidden-up');
+          week.classList.remove('hidden-down');
+        }
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
   });
-}, {
-  threshold: 0.6,
-  rootMargin: "0px 0px -50px 0px"
-});
 
-weeks.forEach((week, i) => {
-  week.style.transitionDelay = `${i * 50}ms`;
-  observer.observe(week);
-});
+  weeks.forEach((week, i) => {
+    week.style.transitionDelay = `${i * 50}ms`;
+    observer.observe(week);
+  });
 </script>
 </body>
 </html>
