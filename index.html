@@ -150,36 +150,35 @@
   const units = document.querySelectorAll('.unit');
   
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      const unit = entry.target;
-      const bounding = entry.boundingClientRect;
-      const previousY = unitStates.get(unit) || bounding.top;
-      const currentY = bounding.top;
-      const scrollingDown = currentY > previousY;
-      unitStates.set(unit, currentY);
-      if (entry.isIntersecting) {
-  unit.classList.add('visible');
-  unit.classList.remove('hidden-up');
-  unit.classList.remove('hidden-down');
+   
+      entries.forEach(entry => {
+  const unit = entry.target;
+  const bounding = entry.boundingClientRect;
+  const previousY = unitStates.get(unit) || bounding.top;
+  const currentY = bounding.top;
+  const scrollingDown = currentY > previousY;
+  unitStates.set(unit, currentY);
+  if (entry.isIntersecting) {
+    unit.classList.add('visible');
+    unit.classList.remove('hidden-up');
+    unit.classList.remove('hidden-down');
 
-  const weeks = unit.querySelectorAll('.week');
-  weeks.forEach((week, i) => {
-    week.style.transitionDelay = `${i * 100}ms`;
-  });
-}
-
-      } else {
-        if (scrollingDown && bounding.top > window.innerHeight) {
-          unit.classList.remove('visible');
-          unit.classList.add('hidden-down');
-          unit.classList.remove('hidden-up');
-        } else if (!scrollingDown && bounding.bottom < 0) {
-          unit.classList.remove('visible');
-          unit.classList.add('hidden-up');
-          unit.classList.remove('hidden-down');
-        }
-      }
+    const weeks = unit.querySelectorAll('.week');
+    weeks.forEach((week, i) => {
+      week.style.transitionDelay = `${i * 100}ms`;
     });
+  } else {
+    if (scrollingDown && bounding.top > window.innerHeight) {
+      unit.classList.remove('visible');
+      unit.classList.add('hidden-down');
+      unit.classList.remove('hidden-up');
+    } else if (!scrollingDown && bounding.bottom < 0) {
+      unit.classList.remove('visible');
+      unit.classList.add('hidden-up');
+      unit.classList.remove('hidden-down');
+    }
+  }
+});
   }, {
     threshold: 0.2, // less restrictive threshold
     rootMargin: "0px 0px -50px 0px"
