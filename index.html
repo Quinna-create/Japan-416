@@ -1,18 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>Japan 416 – Fall 2025 Schedule</title>
+  <style>
+    @font-face {
+      font-family: 'California FB';
+      src: local('California FB');
+    }
+
+    @font-face {
+      font-family: 'Book Antiqua';
+      src: local('Book Antiqua');
+    }
+    body {
+      font-family: 'California FB', Georgia, serif;
+      background-color: #f7f7f7;
+      color: #333;
+      margin: 0;
+      padding: 40px;
+    }
+    h1, h2, h3 {
+      font-family: 'Book Antiqua', Palatino, serif;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    h1 {
+      font-family: 'Book Antiqua', serif;
+      font-size: 2.5em;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    .note {
+      font-style: italic;
+      color: #7f8c8d;
+    }
+    .unit {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+      
+      .unit {
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+       }
+    
+    .unit.hidden-up {
+  opacity: 0;
+  transform: translateY(20px); /* fade out downward */
+  pointer-events: none;
+}
+
+.unit.hidden-down {
+  opacity: 0;
+  transform: translateY(-20px); /* fade out upward */
+  pointer-events: none;
+}
+
+    .unit.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .week {
+  border-left: 5px solid #3498db;
+  padding: 10px 20px;
+  margin-bottom: 15px;
+  background-color: #fdfdfd;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.unit.visible .week {
+  opacity: 1;
+  transform: translateY(0);
+}
+    .week.exam {
+      border-left-color: #e74c3c;
+      background-color: #fff5f5;
+    }
+    .week.exam h3 {
+      color: #c0392b;
+    }
+    .week.final-unit {
+      border-left-color: #8e44ad;
+    }
+    .week.final-unit h3 {
+      color: #8e44ad;
+    }
+    .week:hover {
+      background-color: #eef6ff;
+    }
+    .week h3 {
+      font-family: 'Book Antiqua', serif;
+      margin: 0;
+      font-size: 1.2em;
+      color: #2980b9;
+    }
+    .week p {
+      font-family: 'California FB', serif;
+      margin: 5px 0 0;
+      font-size: 1em;
+    }
+  </style>
 </head>
 <body>
-    <h1>Hello World</h1>
-    <script>
-        if (true) {
-            console.log('It works!');
-        } else {
-            console.log('It does not work!');
+  <header>
+    <h1>Japan 416 – Fall 2025 Schedule</h1>
+    <p class="note">Translation, nuance, and literary exploration</p>
+  </header>
+
+  <section class="unit">
+    <h2>Unit 1: Getting Started</h2>
+    <div class="week"><h3>Week 1 (Sep 3)</h3><p>草野心平 – Course intro, group signups</p></div>
+    <div class="week"><h3>Week 2 (Sep 8 & 10)</h3><p>岸本佐知子</p></div>
+    <div class="week"><h3>Week 3 (Sep 15 & 17)</h3><p>安部公房</p></div>
+    <div class="week"><h3>Week 4 (Sep 22 & 24)</h3><p>安部公房（２）</p></div>
+    <div class="week exam"><h3>Week 5 (Sep 29 & Oct 1)</h3><p>📝 MIDTERM TEST 1</p></div>
+  </section>
+
+  <section class="unit">
+    <h2>Unit 2: Main Projects</h2>
+    <div class="week"><h3>Week 6 (Oct 6 & 8)</h3><p>バカリズム</p></div>
+    <div class="week"><h3>Week 7 (Oct 13 & 15)</h3><p>バカリズム（２）</p></div>
+    <div class="week"><h3>Week 8 (Oct 20 & 22)</h3><p>緑組</p></div>
+    <div class="week"><h3>Week 9 (Oct 27 & 29)</h3><p>白組</p></div>
+    <div class="week"><h3>Week 10 (Nov 3 & 5)</h3><p>黄組</p></div>
+    <div class="week exam"><h3>Week 11 (Nov 10 & 12)</h3><p>📝 紫組 – MIDTERM TEST 2</p></div>
+    <div class="week"><h3>Week 12 (Nov 17 & 19)</h3><p>赤組</p></div>
+    <div class="week"><h3>Week 13 (Nov 24)</h3><p>THANKSGIVING RECESS</p></div>
+    <div class="week"><h3>Week 14 (Dec 1 & 3)</h3><p>青組</p></div>
+  </section>
+
+  <section class="unit">
+    <h2>Unit 3: Final Review & Exam</h2>
+    <div class="week final-unit"><h3>Week 15 (Dec 8 & 10)</h3><p>Final review</p></div>
+    <div class="week exam final-unit"><h3>Final Exam (Dec 16 at 1:30PM)</h3><p>📝 Comprehensive translation</p></div>
+  </section>
+<script>
+  // Animate units when they come into view
+  const unitStates = new Map();
+  const units = document.querySelectorAll('.unit');
+  
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const unit = entry.target;
+      const bounding = entry.boundingClientRect;
+      const previousY = unitStates.get(unit) || bounding.top;
+      const currentY = bounding.top;
+      const scrollingDown = currentY > previousY;
+      unitStates.set(unit, currentY);
+      if (entry.isIntersecting) {
+  unit.classList.add('visible');
+  unit.classList.remove('hidden-up');
+  unit.classList.remove('hidden-down');
+
+  const weeks = unit.querySelectorAll('.week');
+  weeks.forEach((week, i) => {
+    week.style.transitionDelay = `${i * 100}ms`;
+  });
+}
+
+      } else {
+        if (scrollingDown && bounding.top > window.innerHeight) {
+          unit.classList.remove('visible');
+          unit.classList.add('hidden-down');
+          unit.classList.remove('hidden-up');
+        } else if (!scrollingDown && bounding.bottom < 0) {
+          unit.classList.remove('visible');
+          unit.classList.add('hidden-up');
+          unit.classList.remove('hidden-down');
         }
-    </script>
+      }
+    });
+  }, {
+    threshold: 0.2, // less restrictive threshold
+    rootMargin: "0px 0px -50px 0px"
+  });
+  units.forEach((unit, i) => {
+    unit.style.transitionDelay = `${i * 100}ms`;
+    observer.observe(unit);
+  });
+</script>
 </body>
 </html>
