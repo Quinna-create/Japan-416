@@ -80,6 +80,12 @@
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
+    .week.hidden {
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.6s ease-in, transform 0.6s ease-in;
+      pointer-events: none;
+}
 .unit.hidden {
   opacity: 0;
   transform: translateY(-20px);
@@ -175,29 +181,33 @@
     const scrollingDown = scrollTop > lastScrollTop;
 
     units.forEach((unit, i) => {
-  unit.style.transitionDelay = `${i * 100}ms`;
+      unit.style.transitionDelay = `${i * 100}ms`;
 
-  if (scrollingDown) {
-    unit.classList.add('visible');
-    unit.classList.remove('hidden');
-  } else {
-    // Keep Unit 1 visible until user scrolls past 100px
-    if (i === 0 && scrollTop < 100) {
-      unit.classList.add('visible');
-      unit.classList.remove('hidden');
-    } else {
-      unit.classList.remove('visible');
-      unit.classList.add('hidden');
-    }
-  }
-});
+      if (scrollingDown) {
+        unit.classList.add('visible');
+        unit.classList.remove('hidden');
+      } else {
+        // Keep Unit 1 visible until user scrolls past 100px
+        if (i === 0 && scrollTop < 100) {
+          unit.classList.add('visible');
+          unit.classList.remove('hidden');
+        } else {
+          unit.classList.remove('visible');
+          unit.classList.add('hidden');
+        }
+      }
+    });
 
     weeks.forEach((week, i) => {
-      week.style.transitionDelay = `${i * 100}ms`;
+      const delay = scrollingDown ? i * 100 : (weeks.length - i) * 100;
+      week.style.transitionDelay = `${delay}ms`;
+
       if (scrollingDown) {
         week.classList.add('visible');
+        week.classList.remove('hidden');
       } else {
         week.classList.remove('visible');
+        week.classList.add('hidden');
       }
     });
 
